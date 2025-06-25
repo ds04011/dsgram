@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+#wrap {
+	height : 800px;
+	width : 1200px;
+	margin : 0 auto;
+}
+
+header {
+	height : 100px;
+	
+}
+
+.contents {
+	height : 500px;
+	
+}
+
+footer {
+	height : 100px;
+}
+
+.gram-bg {
+	background-color:#f3ebe6;
+	
+}

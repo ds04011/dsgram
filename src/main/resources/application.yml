@@ -1,6 +1,8 @@
 spring:
+  mvc: 
+    static-path-pattern: /static/** 
   config:
-    import : security-variables.yml                          // 보안 파일 import
+    import : security-variables.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url : jdbc:mysql://localhost:3306/dsgram_ds04011
