@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class MD5HashingEncoder {
 
 	// 문자열 해싱하는 기능
-	public String encode(String message) {
+	public static String encode(String message) {
 		
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance("md5");

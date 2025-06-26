@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko" 
     xmlns:th="http://www.thymeleaf.org" 
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/userdefault}">
+        
+        <!-- 위가 틀 소환, 아래가 알맹이 . -->  
+        
+        
+        
+		<section layout:fragment="contents" class="contents  d-flex justify-content-center">
+			<div class="pic bg-dark col-5 p-2 mr-5">
+			
+			</div>
+			
+			<div class=" col-5 p-2">
+				<div class="user-box  ml-5">
+					<h3 class="">Dsgram 과 함께</h3>
+					<input type="text" class="form-control mt-5" placeholder="아이디">
+					<input type="password" class="form-control mt-3" placeholder="password">
+					<button type="button" class="btn btn-secondary btn-block mt-3">Login</button>
+					<div class="d-flex justify-content-end mt-3"><a href="/user/view/register">합류하라</a></div>
+				</div>
+			</div>
+		</section>
 
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<link rel = "stylesheet" href="/static/css/style.css">
-<title>Insert title here</title>
-
-</head>
-<body>
 	
-	<div id="wrap " class="bg-dark">
-		<header class="bg-info"></header>
-		<section class="contents bg-danger"></section>
-		<footer class="bg-secondary"></footer>
-	</div>
-	
-	
+		<script layout:fragment="script">
+			
+		
+		</script>
 	
 
-</body>
+
 </html>

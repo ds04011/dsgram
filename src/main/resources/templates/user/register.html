@@ -15,14 +15,14 @@
 			<div class=" col-5 p-2">
 				<div class="user-box  ml-5">
 					<h3 class="">회원가입을 진행하세요</h3>
-					<input type="text" class="form-control mt-5" placeholder="아이디">
-					<div class="d-flex justify-content-end"><button type="button" class="btn btn-sm btn-secondary " >중복</button></div> <!-- div로 감싸서  -->
-					<input type="password" class="form-control mt-3" placeholder="password">
-					<input type="password" class="form-control mt-3" placeholder="password check">
-					<input type="text" class="form-control mt-3" placeholder="이름">
-					<input type="text" class="form-control mt-3" placeholder="이메일">
-					<div class="d-flex justify-content-end"><button type="button" class=" btn btn-sm btn-secondary " >중복</button></div>
-					<button type="button" class="btn btn-secondary btn-block mt-3">Register</button>
+					<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
+					<input type="password" class="form-control mt-3" placeholder="password" id="passwordInput">
+					<input type="password" class="form-control mt-3" placeholder="password check" id="passwordCheck">
+					<input type="text" class="form-control mt-3" placeholder="닉네임" id="nicknameInput">
+					<div class="d-flex justify-content-end"><button type="button" class="btn btn-sm btn-secondary " id="nicknameDup" >중복</button></div> <!-- div로 감싸서  -->
+					<input type="text" class="form-control mt-3" placeholder="이메일" id="emailInput">
+					<div class="d-flex justify-content-end"><button type="button" class=" btn btn-sm btn-secondary " id="emailDup">중복</button></div>
+					<button type="button" class="btn btn-secondary btn-block mt-3" id="registerBtn">Register</button>
 				</div>
 			</div>
 		</section>
@@ -30,7 +30,120 @@
 		
 		<script layout:fragment="script">
 			
-		
+			let nicknameDupCheck = false;
+			let emailDupCheck = false;
+			
+			
+			$("#nicknameDup").on("click", function(){
+				let nickname = $("#nicknameInput").val();
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/check/nickname"
+					, data:{"nickname":nickname}
+					, success:function(response){
+						if(response.duplicate=="yes"){
+							alert("이미 사용중인 닉네임 입니다.");
+						} else {
+							nicknameDupCheck = true;
+							alert("사용가능한 닉네임 입니다.");
+						}
+					} 
+					, error:function(){
+						alert("닉네임 중복 체크 중 통신 에러 ");
+					}
+				});
+				
+			});
+			
+			
+			
+			$("#emailDup").on("click", function(){
+				let email = $("#emailInput").val();
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/check/email"
+					, data:{"email":email}
+					, success:function(response){
+						if(response.duplicate=="yes"){
+							alert("이미 사용중인 이메일 입니다.");
+						} else {
+							emailDupCheck = true;
+							alert("사용가능한 이메일 입니다.");
+						}
+					}
+					, error:function(){
+						alert("이메일 중복 체크 중 통신 에러");
+					}
+				});
+			});
+				
+			
+			
+			$("#registerBtn").on("click", function(){
+				let loginId = $("#idInput").val();
+				let password = $("#passwordInput").val();
+				let passwordCheck = $("#passwordCheck").val();
+				let nickname = $("#nicknameInput").val();
+				let email = $("#emailInput").val();
+				
+				
+				if(loginId==""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				if(password==""){
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				if(passwordCheck==""){
+					alert("비밀번호 확인 창에 입력하세요");
+					return;
+				}
+				if(nickname==""){
+					alert("닉네임을 입력하세요");
+					return;
+				}
+				if(email==""){
+					alert("이메일을 입력하세요");
+					return;
+				}
+				if(password != passwordCheck){
+					alert("비밀번호가 일치하지 않습니다. ");
+					return;
+				}
+				if(!nicknameDupCheck){
+					alert("닉네임 중복 체크를 진행해주세요.");
+					return;
+				}
+				if(!emailDupCheck){
+					alert("이메일 중복 체크를 진행해주세요.");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/register"
+					, data:{"loginId":loginId, "password":password, "email":email, "nickname":nickname}
+					, success:function(response){
+						if(response.result == "success"){
+							location.href="/user/view/login";
+							
+						} else {
+							alert("회원 가입 진행중 로직 에러 발생");
+						}
+					}
+					, error:function(){
+						alert("회원가입 진행 중 통신 에러 발생");
+					}		
+				});
+			});
+				
+			
+			
+			
+			
 		</script>
 	
 	
