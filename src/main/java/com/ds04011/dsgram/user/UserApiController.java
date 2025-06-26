@@ -67,5 +67,20 @@ public class UserApiController {
 		
 	}
 	
+//	@PostMapping("/login")
+//	public Map<String, String> login(@RequestParam("loginId") String loginId
+//			, @RequestParam("password") String password){
+//		
+//		boolean result = userService.login(loginId, password);
+//		
+//		Map<String, String> resultMap = new HashMap<>();
+//		if(result) {
+//			resultMap.put("result", "success");
+//		} else {
+//			resultMap.put("result", "fail");
+//		}
+//	}
+	
+	
 
 }

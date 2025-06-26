@@ -16,9 +16,9 @@
 			<div class=" col-5 p-2">
 				<div class="user-box  ml-5">
 					<h3 class="">Dsgram 과 함께</h3>
-					<input type="text" class="form-control mt-5" placeholder="아이디">
-					<input type="password" class="form-control mt-3" placeholder="password">
-					<button type="button" class="btn btn-secondary btn-block mt-3">Login</button>
+					<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
+					<input type="password" class="form-control mt-3" placeholder="password" id="passwordInput">
+					<button type="button" class="btn btn-secondary btn-block mt-3" id="loginBtn">Login</button>
 					<div class="d-flex justify-content-end mt-3"><a href="/user/view/register">합류하라</a></div>
 				</div>
 			</div>
@@ -27,6 +27,44 @@
 	
 		<script layout:fragment="script">
 			
+			$("#loginBtn").on("click", function(){
+				
+				let idInput = $("#idInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(idInput==""){
+					alert("아이디를 입력해주세요.");
+					return;
+				}
+				if(password ==""){
+					alert("비밀번호를 입력해주세요.");
+					return;
+				}
+				
+				
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/login"
+					, data:{"loginId":idInput, "password":password}
+					, success:function(response){
+						if(response.result =="success"){
+							location.href="/post/view/timeline";
+						} else {
+							alert("로그인에 실패하셨습니다.");
+							location.href="/user/view/login";
+						}
+						
+					} 
+					, error:function(){
+						alert("로그인 과정 중 통신 에러");
+					}
+					
+					
+					
+				});
+				
+			});
 		
 		</script>
 	

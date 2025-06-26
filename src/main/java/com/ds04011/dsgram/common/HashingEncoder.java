@@ -3,14 +3,14 @@ package com.ds04011.dsgram.common;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5HashingEncoder {
+public class HashingEncoder {
 
 	// 문자열 해싱하는 기능
 	public static String encode(String message) {
 		
 		try {
-			MessageDigest messageDigest = MessageDigest.getInstance("md5");
-			
+			MessageDigest messageDigest = MessageDigest.getInstance("sha256");
+									// md5 대신 sha256 으로 하면 32 자리에서 64자리 까지 인코딩 가능 
 			byte[] bytes = message.getBytes();  
 			messageDigest.update(bytes);
 			byte[] digest = messageDigest.digest();

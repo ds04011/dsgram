@@ -2,7 +2,7 @@ package com.ds04011.dsgram.user.service;
 
 import org.springframework.stereotype.Service;
 
-import com.ds04011.dsgram.common.MD5HashingEncoder;
+import com.ds04011.dsgram.common.HashingEncoder;
 import com.ds04011.dsgram.user.repository.UserRepository;
 
 @Service
@@ -16,7 +16,7 @@ public class UserService {
 	
 	public boolean addUser(String loginId, String password, String email, String nickname) {
 		
-		String encodedPassword = MD5HashingEncoder.encode(password);
+		String encodedPassword = HashingEncoder.encode(password);
 		
 		int count = userRepository.insertUser(loginId, encodedPassword, email, nickname);
 		if(count ==1) {
