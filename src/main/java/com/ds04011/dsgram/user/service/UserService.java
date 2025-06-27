@@ -3,6 +3,7 @@ package com.ds04011.dsgram.user.service;
 import org.springframework.stereotype.Service;
 
 import com.ds04011.dsgram.common.HashingEncoder;
+import com.ds04011.dsgram.user.domain.User;
 import com.ds04011.dsgram.user.repository.UserRepository;
 
 @Service
@@ -42,6 +43,14 @@ public class UserService {
 			return false;
 		}
 		else return true;
+	}
+	
+	public User login(String loginId, String password) {
+		
+		String encodedPassword = HashingEncoder.encode(password);
+		User user =userRepository.selectUser(loginId, encodedPassword);
+		return user;
+		
 	}
 
 }

@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ds04011.dsgram.user.domain.User;
 import com.ds04011.dsgram.user.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
@@ -67,19 +71,31 @@ public class UserApiController {
 		
 	}
 	
-//	@PostMapping("/login")
-//	public Map<String, String> login(@RequestParam("loginId") String loginId
-//			, @RequestParam("password") String password){
-//		
-//		boolean result = userService.login(loginId, password);
-//		
-//		Map<String, String> resultMap = new HashMap<>();
-//		if(result) {
-//			resultMap.put("result", "success");
-//		} else {
-//			resultMap.put("result", "fail");
-//		}
-//	}
+	@PostMapping("/login")
+	public Map<String, String> login(@RequestParam("loginId") String loginId
+			, @RequestParam("password") String password
+			, HttpServletRequest request){
+		
+		User user = userService.login(loginId, password);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		if(user != null) {
+			resultMap.put("result", "success");
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginId", user.getNickname()); // 이걸로 유저 표현
+			session.setAttribute("userId",  user.getId()); // 이걸로 로그인 판별, 
+			
+			
+			
+			
+			
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
 	
 	
 

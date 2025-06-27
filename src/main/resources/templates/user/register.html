@@ -30,8 +30,24 @@
 		
 		<script layout:fragment="script">
 			
-			let nicknameDupCheck = false;
-			let emailDupCheck = false;
+			var nicknameDupCheck = false;
+			var emailDupCheck = false;
+			
+			// 입력 내용이 바뀌면, 중복 체크 기준을 다시 잡아야 함. 
+			// input 이벤트를 기반으로 입력내용 변경시 중복체크를 다시 하도록 해야함. 
+			$("#nicknameInput").on("input", function(){
+				// 중복확인 과정 초기화 
+				nicknameDupCheck = false;
+			});
+			
+			
+			$("#emailInput").on("input", function(){
+				// 중복확인 과정 초기화 
+				emailDupCheck = false;
+			});
+			
+			
+			
 			
 			
 			$("#nicknameDup").on("click", function(){

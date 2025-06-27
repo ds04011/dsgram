@@ -42,5 +42,24 @@
  	
  	</select>	
  		
+ 	<select id="selectUser"
+ 	parameterType="Map"
+ 	 resultType="com.ds04011.dsgram.user.domain.User">
+ 	 	Select 
+ 	 		`id`
+ 	 		, `loginId`
+ 	 		, `password`
+ 	 		, `nickname`
+ 	 		, `email`
+ 	 		, `createdAt`
+ 	 		, `updatedAt`
+ 	 	From
+ 	 		`user`
+ 	 	Where
+ 	 		`loginId` = #{loginId}
+ 	 		And
+ 	 		`password` = #{password}
+ 	
+ 	</select>	
  
  </mapper>

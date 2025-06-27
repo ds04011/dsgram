@@ -18,8 +18,5 @@ public class UserController {
 		return "user/register.html";
 	}
 
-	@GetMapping("/test")
-	public String testpage() {
-		return "layouts/timelinedefault.html";
-	}
+	
 }
