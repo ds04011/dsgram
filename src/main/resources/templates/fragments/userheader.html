@@ -2,4 +2,10 @@
 			<h1 class="ml-4 ">DsGram</h1>
 			<!--  나는 사이드 내브바에 화면이동이나 로그아웃, 마이페이지 등 자기정보를
 			올릴 생각이니까, 헤더에 넣지 말자.  -->
+			
+			<div>
+				<span th:text="${session.userNickname}">닉</span>
+				<!-- <a href="/user/logout">로그아웃</a> -->
+			</div>
+			
 		</header>

@@ -16,9 +16,11 @@
 			<div class=" col-5 p-2">
 				<div class="user-box  ml-5">
 					<h3 class="">Dsgram 과 함께</h3>
-					<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
-					<input type="password" class="form-control mt-3" placeholder="password" id="passwordInput">
-					<button type="button" class="btn btn-secondary btn-block mt-3" id="loginBtn">Login</button>
+					<form id="loginForm">
+						<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
+						<input type="password" class="form-control mt-3" placeholder="password" id="passwordInput">
+						<button type="submit" class="btn btn-secondary btn-block mt-3" id="loginBtn">Login</button>
+					</form>
 					<div class="d-flex justify-content-end mt-3"><a href="/user/view/register">합류하라</a></div>
 				</div>
 			</div>
@@ -26,9 +28,18 @@
 
 	
 		<script layout:fragment="script">
+		
+			// 좀더 좋은 ux 를 가진 로그인 페이지, 엔터로 로그인 되게 해보자. 
+			// form 태그는 엔터로도 기능이 작동함. 
+			// 근데 이제 alert 이후 페이지 초기화됨. form 에 의해 새로고침이 된다. 주소 뒤의 ? 가 그걸 보여줌
+			// 정확하게 form 태그에 의한 동작을 제어해야 함. 
 			
-			$("#loginBtn").on("click", function(){
+			// $("#loginBtn").on("click", function(){}) 에서 아래의 형태로, 이벤트 등록.
+			$("#loginForm").on("submit", function(e){
 				
+				// 추가로 form 태그의 기능을 제거해야함. function 의 파라미터로 (e) 제어하자.
+				e.preventDefault();       // 기존의 기능을 제거. 
+				// 이제 새로고침이 없어짐 , 
 				let idInput = $("#idInput").val();
 				let password = $("#passwordInput").val();
 				

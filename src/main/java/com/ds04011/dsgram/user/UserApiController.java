@@ -85,6 +85,7 @@ public class UserApiController {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginId", user.getNickname()); // 이걸로 유저 표현
 			session.setAttribute("userId",  user.getId()); // 이걸로 로그인 판별, 
+			session.setAttribute("nickname", user.getNickname());
 			
 			
 			
