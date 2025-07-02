@@ -19,7 +19,8 @@
 				 
 				<nav class=" ">
 	                <ul class="nav flex-column font-weight-bold pt-1">
-	                    <li th:if="${session.userId!=null}" class="nav-item ml-3" th:text="|${session.nickname}님|">누구님</li>
+	                    <li th:if="${session.userId!=null}" class="nav-item ml-3 my-2" th:text="|${session.nickname}님|">누구님</li>
+	                    <li th:if="${session.userId==null}" class="nav-item ml-3 my-2" ><a href="/user/view/login">로그인</a></li>
 	                    <li class="nav-item my-3"><a href="/post/view/create" class="nav-link ">글쓰기</a></li>
 	                    <li class="nav-item my-3"><a href="/post/view/timeline" class="nav-link ">타임라인</a></li>
 	                    <li class="nav-item my-3"><a href="/user/view/mypage" class="nav-link ">내 글 목록</a></li>
@@ -34,7 +35,7 @@
 			<th:block layout:fragment="contents"></th:block>
 		</div>
 		
-		<th:block layout:fragment="contents"></th:block>
+		
 		
 		<th:block th:replace="~{fragments/userfooter}"></th:block>
 	</div>

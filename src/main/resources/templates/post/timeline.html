@@ -7,8 +7,26 @@
         
         <section layout:fragment="contents">
         	<!-- 이제 이 안에 포스트 리스트 불러와서 반복문으로 쭉 깔면 된다.  -->
-        	
-        	
+        	<div class="outer d-flex flex-column align-items-center ">
+	        		
+	        		<div class="postBox my-3 border border-secondary rounded-lg" th:each="post : ${postList}">
+        				
+        				<div class="pl-2 ">
+        					<h4 th:text="${session.nickname}"></h4>
+        					<span th:text="${#temporals.format(post.createdAt, 'yyyy, M, d, a h시 m분') }"></span>
+        				</div>
+        				<hr>
+        				<div class="textContent p-4" th:text="${post.contents}"></div>
+        				<img th:if="${post.imagePath != null}" th:src="${post.imagePath}" width="200px" class="m-2">
+        				<!-- th:if 문으로 사진은 있으면 보여주기 
+        				 사진 위치 잘 조정해야함. 내가 생각한 위치에 보내야 하는데, 
+        				 
+        				 
+        				 그리고 댓글창, 좋아요 위치 잡아야 함. -->	
+
+    	    		</div>
+
+        	</div>
         </section>
         
         

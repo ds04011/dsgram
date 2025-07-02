@@ -24,8 +24,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/timeline")
-	public String timeline(Model model
-			, HttpSession session) {
+	public String timeline(Model model) {
 		
 		
 		// 세션 정보 + DB 에서 포스트 정보 긁어다가 보내줘야함, 
@@ -37,9 +36,16 @@ public class PostController {
 		
 		List<Post> totalPost = postService.getAllPost();
 		
-		
-		
+		model.addAttribute("postList", totalPost);
+
 		return "post/timeline";
+	}
+	
+	
+	@GetMapping("/create")
+	public String create() {
+		
+		return "post/input";
 	}
 
 }
