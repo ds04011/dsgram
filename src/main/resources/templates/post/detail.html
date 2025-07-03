@@ -8,11 +8,9 @@
         <section layout:fragment="contents">
         	<!-- 이제 이 안에 포스트 리스트 불러와서 반복문으로 쭉 깔면 된다.  -->
         	<div class="outer d-flex flex-column align-items-center ">
-        	        		<!-- ${session.nickname} 이거 로그인한 유저 정보임. 
-        					포스트 작성자 닉네임이 아님. 그래서 PostDto 가 필요함.
-        					Dto 에 user nickname 을 담아서 보냈으니, 이제 꺼내 쓸수 있음. -->
+
 	        		
-	        		<div class="postBox my-3 border border-secondary rounded-lg " th:each="post : ${postList}">	
+	        		<div class="postBox my-3 border border-secondary rounded-lg ">	
         				<div class="pl-2 postinfo">
         					<h4 th:text="${post.nickname}"></h4>
         					<span th:text="${#temporals.format(post.createdAt, 'yyyy, M, d, a h시 m분') }"></span>
@@ -25,6 +23,7 @@
 	        				
         				</div>
         				
+        				<!--  여기에 comments 로 넘어온 정보 이용해서 표현. -->
         				 <div class="commentandlike ">
         				 	<div>
         				 		<button type="button" class="bi bi-balloon-heart  ml-2 mt-2"></button><br>
@@ -33,7 +32,7 @@
         				 				<span class=" ml-2 mt-2">댓글이 이렇게 표현되요</span><br>
         				 				<span class=" ml-2 mt-2">댓글이 이렇게 표현되요</span>
         				 			</div>
-        				 			<a th:href="|/post/view/detail?id=${post.id}|" class="btn  btn-outline-secondary btn-sm px-2 py-1">상세보기</a>
+        				 			<button type="button" class="btn  btn-outline-secondary btn-sm px-2 py-1">댓글 쓰기</button>
         				 		</div>
         				 	</div>
         				 </div>

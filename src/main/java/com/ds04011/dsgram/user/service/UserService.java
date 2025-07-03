@@ -52,5 +52,9 @@ public class UserService {
 		return user;
 		
 	}
+	
+	public User getUserById(long id) {
+		return userRepository.selectUserById(id);
+	}
 
 }

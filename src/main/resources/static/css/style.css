@@ -42,7 +42,8 @@ footer {
 
 .postBox{
 	width:700px;
-	height:400px;
+	display: flex;
+  	flex-direction: column;
 	
 }
 
@@ -56,4 +57,24 @@ footer {
   	white-space: normal;
   	max-width: 100%;
 	
+}
+
+.postinfo{
+	height:60px;
+}
+
+.commentandlike{
+	height:100px;
+	margin-top: auto;
+	background-color: #f8f9fa;
+}
+
+.poststory{
+	min-height:200px;
+}
+
+.poststory img {
+  height: auto;
+  max-height: 200px;
+  object-fit: contain; /* 또는 cover, depending on desired cropping */
 }

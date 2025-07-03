@@ -18,4 +18,6 @@ public interface UserRepository {
 	public int countByNickname(@Param("nickname") String nickname);
 	
 	public User selectUser(@Param("loginId") String loginId,@Param("password") String password );
+	
+	public User selectUserById(@Param("id") long id);
 }

@@ -4,6 +4,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css">
 <title>Insert title here</title>
@@ -21,9 +22,9 @@
 	                <ul class="nav flex-column font-weight-bold pt-1">
 	                    <li th:if="${session.userId!=null}" class="nav-item ml-3 my-2" th:text="|${session.nickname}님|">누구님</li>
 	                    <li th:if="${session.userId==null}" class="nav-item ml-3 my-2" ><a href="/user/view/login">로그인</a></li>
-	                    <li class="nav-item my-3"><a href="/post/view/create" class="nav-link ">글쓰기</a></li>
+	                    <li class="nav-item my-3"><a href="/post/view/create" class="nav-link bi bi-pencil-square" >글쓰기</a></li>
 	                    <li class="nav-item my-3"><a href="/post/view/timeline" class="nav-link ">타임라인</a></li>
-	                    <li class="nav-item my-3"><a href="/user/view/mypage" class="nav-link ">내 글 목록</a></li>
+	                    <li class="nav-item my-3"><a href="/user/view/mypage" class="nav-link bi bi-card-list " >내 글 목록</a></li>
 	                    <li th:if="${session.userId!=null}" class="nav-item my-3"><a href="/user/logout" class="nav-link ">로그아웃</a></li>
 	                </ul>
             	</nav>

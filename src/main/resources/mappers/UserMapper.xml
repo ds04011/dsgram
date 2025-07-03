@@ -61,5 +61,22 @@
  	 		`password` = #{password}
  	
  	</select>	
+ 	
+ 	<select id="selectUserById"
+ 	parameterType="long"
+ 	resultType="com.ds04011.dsgram.user.domain.User">
+ 		Select 
+ 			`id`
+ 			, `loginId`
+ 	 		, `password`
+ 	 		, `nickname`
+ 	 		, `email`
+ 	 		, `createdAt`
+ 	 		, `updatedAt`
+ 	 	From
+ 	 		`user`
+ 	 	Where
+ 	 		`id` = #{id}
+ 	</select>
  
  </mapper>
