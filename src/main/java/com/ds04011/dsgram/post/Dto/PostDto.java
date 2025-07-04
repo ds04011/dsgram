@@ -1,10 +1,15 @@
 package com.ds04011.dsgram.post.Dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.ds04011.dsgram.comment.Dto.CommentDto;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder(toBuilder=true)
+@Getter
 public class PostDto {
 	
 	// d아이디 컨텐츠 이미지패스 유저아이디 로그인아이디
@@ -19,43 +24,12 @@ public class PostDto {
 	
 	private LocalDateTime createdAt;
 	
+	private long likeCount;
+	private boolean isLike;
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	public String getImagePath() {
-		return imagePath;
-	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-	public long getUserId() {
-		return userId;
-	}
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+	private List<CommentDto> commentList;
+	
+	
 	
 	
 }

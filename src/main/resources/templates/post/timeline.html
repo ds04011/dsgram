@@ -26,14 +26,18 @@
         				</div>
         				
         				 <div class="commentandlike ">
-        				 	<div>
-        				 		<button type="button" class="bi bi-balloon-heart  ml-2 mt-2"></button><br>
+        				 	<div>											<!--heart-icon 로 JS 버튼 등록            , 태그에 postId 할당, JS 에서 쓰자.  -->
+        				 		<button type="button" class="bi bi-balloon-heart heart-icon ml-2 mt-2" th:data-post-id="${post.id}"></button><span>좋아요 11개</span>
+        				 		<br>
         				 		<div class="d-flex justify-content-between align-items-end">
         				 			<div class="flex-grow-1">
-        				 				<span class=" ml-2 mt-2">댓글이 이렇게 표현되요</span><br>
-        				 				<span class=" ml-2 mt-2">댓글이 이렇게 표현되요</span>
+        				 				<span class=" ml-2 mt-2"><b>작성자 </b>댓글이 이렇게 표현되요</span><br>
+        				 				<span class=" ml-2 mt-2"><b>작성자 </b>댓글이 이렇게 표현되요</span>
         				 			</div>
         				 			<a th:href="|/post/view/detail?id=${post.id}|" class="btn  btn-outline-secondary btn-sm px-2 py-1">상세보기</a>
+        				 			<!--  	이게 최적 1. a태그 + 타임리프로 id 얹어서 보내기 
+        				 					이건안댐!! 매번 반복해야하니까, 2. 반복되는 버튼에 타임리프로 th:id="|~~${}|" 로 id 부여 후 ajax통신
+        				 					이건 굳이, 3. class="머시기btn " 이렇게 부여하고, 클래스로 버튼등록하고, data-~~~ 로 값 부여해서 ajax 통신 -->
         				 		</div>
         				 	</div>
         				 </div>
@@ -43,5 +47,76 @@
         </section>
         
         
+        
+        
+        
+        <!-- 
+        	반복되는 버튼에 th:data-post-id = ${post.id} 이런식으로 값 부여
+        	반복되는 버튼이면 클래스에 이름 부여, 
+        	스크립트에서 버튼이 눌렸을때에,    $(this).data("post-id")
+        	의 형식으로 그 버튼이 가지고 있는 값을 가지고 와서
+        	기능 수행. 
+        	이걸로 상세 보기 만들면 되겠다. 
+        	근데 이게 API 와 화면 넘기기 기능에 따라 좀 다를거같은데, 
+        	API 는 이 방식이 제일 좋은건 맞는듯. 
+        	
+        	
+        	중요한건, 반복되는 것에 같은 id 부여하면 안됨
+        	버튼에 정보 가져오는건 ok, 반복되는 input 에서는 어떻게 val 을 가져오냐?
+        	input 옆에 있는 버튼 과 연동시키는 방법으로 해야함. 
+        	
+        	1. 태그 위치 기반으로 정보 가져오기. 
+        	버튼태그 바로 앞에 input 태그가 있으면, 그보다 바로 앞의 객체를 가져오게 하는게 가능함.
+        	
+        	$(this).prev().val();              이벤트 발생 버튼 앞의 태그 의 val 가져오는것.             
+        	
+        	근데 보다시피 좀 불안정함. 살짝만 바뀌어도 딴거가져올듯? 그리고 태그가 복잡하면 `앞` 이라는 것도 애매함
+        	
+        	2. id 부여하는데, 뒤에 뭔가를 붙이자, 
+        	th:id="|commentInput${post.id}|" 이런 느낌으로 
+        	반복되는 버튼의 id 가 매번 달라지며, 동시에 가져오기에도 쉽다.
+        	
+        	가져올 때?    $("#commentInput" + postId)  이렇게 문자열 합성 해서 넣으면 그만.
+        	
+        	
+        
+        
+        	상세 보기 말고 그냥 화면 클릭했을 때에 그 게시글 상세로 들어가는게 더 SNS 스럽긴한데,,
+        	
+        
+         -->
+        
+        
+        
+        
+        
+        
+        
+        <script layout:fragment="script">
+        	$(".heart-icon").on("click", function(){
+        		let postId = $(this).data("post-id");
+        		
+        		$.ajax({
+        			type:"post"
+        			, url:"/like/create"
+        			, data:{"postId":postId}
+        			, success:function(response){
+        				if(response.result =="success"){
+        					location.reload(); // 좋아요 개수 갱신되게,
+        				} else {
+        					alert("좋아요 기능 실패");
+        				}
+        				
+        			}
+        			, error:function(){
+        				alert("좋아요 기능 중 통신 에러");
+        			}
+        		});
+        	});
+        
+        	
+        	
+        
+        </script>
         
 </html>

@@ -24,16 +24,30 @@
         				</div>
         				
         				<!--  여기에 comments 로 넘어온 정보 이용해서 표현. -->
-        				 <div class="commentandlike ">
+        				 <div class="commentandlike1 ">
         				 	<div>
-        				 		<button type="button" class="bi bi-balloon-heart  ml-2 mt-2"></button><br>
+        				 		<button type="button" class="bi bi-balloon-heart  ml-2 mt-2"></button> <span>좋아요</span><span th:text="|${likeCount}개|"></span>
+        				 		<br>
         				 		<div class="d-flex justify-content-between align-items-end">
-        				 			<div class="flex-grow-1">
-        				 				<span class=" ml-2 mt-2">댓글이 이렇게 표현되요</span><br>
-        				 				<span class=" ml-2 mt-2">댓글이 이렇게 표현되요</span>
-        				 			</div>
-        				 			<button type="button" class="btn  btn-outline-secondary btn-sm px-2 py-1">댓글 쓰기</button>
+									<!--  <div class="flex-grow-1 commentarea" th:each="comment : ${comments} ">
+										<p class="ml-2 mt-2" th:text="${comment.contents}"></p>
+									</div> -->
+									<div class="commentarea" th:if="${not #lists.isEmpty(comments)}">
+									    <th:block th:each="comment : ${comments}">
+									        <b th:text=${comment.nickname}></b><p th:text="${comment.contents}"></p>
+									    </th:block> 
+									</div>
+									<div th:if="${#lists.isEmpty(comments)}">
+									    <p class="text-muted">아직 댓글이 없습니다.</p>
+									</div>
+									
+        				 			
         				 		</div>
+        				 	</div>
+        				 	
+        				 	<div class="d-flex my-3">
+        				 		<input type="text" class="form-control col-10" id="contentsInput"> 
+        				 		<button type="button" class="btn  btn-outline-secondary col-2 btn-sm px-2 py-1" id="commentBtn" th:data-post-id="${post.id}">댓글달기</button>
         				 	</div>
         				 </div>
     	    		</div>
@@ -41,6 +55,38 @@
         	</div>
         </section>
         
+        <script layout:fragment="script">
+        	
+        	$("#commentBtn").on("click", function(){
+        		let contents = $("#contentsInput").val();
+        		let postId = $(this).data("post-id");
+        		
+        		if(contents==""){
+        			alert("댓글 내용을 입력하신 후 댓글달기를 눌러주세요");
+        			return;
+        		}
+        		
+        		
+        		
+        		$.ajax({
+        			type:"post"
+        			, url:"/comment/create"
+        			, data:{"postId":postId, "contents":contents}
+        			, success:function(response){
+        				if(response.result="success"){
+        					location.reload();
+        					
+        				} else{
+        					alert("댓글 작성 실패");
+        				}
+        			}
+        			, error:function(){
+        				alert("댓글 작성중 통신 에러");
+        			}
+        		});
+        		
+        	});
         
+        </script>
         
 </html>

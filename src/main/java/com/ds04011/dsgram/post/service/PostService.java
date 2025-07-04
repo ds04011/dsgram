@@ -82,10 +82,27 @@ public class PostService {
 		
 	}
 	
-	public Post getPost(long id) {
+	public PostDto getPostById(long id) {
 		Optional<Post> opPost =  postRepository.findById(id);
 		if(opPost.isPresent()) {
-			return opPost.get();
+			Post post =  opPost.get();
+			User user = userService.getUserById(post.getUserId());
+			
+			
+			
+			PostDto postDto = PostDto.builder()
+					.id(post.getId())
+					.contents(post.getContents())
+					.imagePath(post.getImagePath())
+					.userId(post.getUserId())
+					.nickname(user.getNickname())
+					.createdAt(post.getCreatedAt())
+					.build();
+			
+			return postDto;
+			
+			
+			
 			
 		} else {
 			return null;

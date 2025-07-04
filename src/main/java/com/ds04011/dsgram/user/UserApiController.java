@@ -83,7 +83,7 @@ public class UserApiController {
 			resultMap.put("result", "success");
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("loginId", user.getNickname()); // 이걸로 유저 표현
+			session.setAttribute("loginId", user.getLoginId()); // 이걸로 유저 표현
 			session.setAttribute("userId",  user.getId()); // 이걸로 로그인 판별, 
 			session.setAttribute("nickname", user.getNickname()); //화면 구성할때 이게 필요한가?
 			// 지금 로그인 해있는 사람을 표현하는거면 필요하긴 할듯.

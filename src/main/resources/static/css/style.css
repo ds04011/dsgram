@@ -78,3 +78,8 @@ footer {
   max-height: 200px;
   object-fit: contain; /* 또는 cover, depending on desired cropping */
 }
+.commentandlike1{
+	/*height:100px;*/
+	margin-top: auto;
+	background-color: #f8f9fa;
+}
