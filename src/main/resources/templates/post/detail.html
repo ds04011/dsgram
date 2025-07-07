@@ -26,15 +26,19 @@
         				<!--  여기에 comments 로 넘어온 정보 이용해서 표현. -->
         				 <div class="commentandlike1 ">
         				 	<div>
-        				 		<button type="button" class="bi bi-balloon-heart  ml-2 mt-2"></button> <span>좋아요</span><span th:text="|${likeCount}개|"></span>
+        				 		<!-- th:unless 로 조건 줘서 postDto 에 post.isLike 로 다른 아이콘 넣고, 여기에 JS 연동시키고,  -->
+        				 		<button type="button" th:if="${isLike}" class="bi bi-balloon-heart-fill heart-icon-fill ml-2 mt-2" th:data-post-id="${post.id}"></button>
+        				 		<button type="button" th:unless="${isLike}" class="bi bi-balloon-heart heart-icon ml-2 mt-2" th:data-post-id="${post.id}"></button>
+        				 		
+        				 		<span>좋아요</span><span th:text="|${likeCount} 개|"></span>
         				 		<br>
         				 		<div class="d-flex justify-content-between align-items-end">
 									<!--  <div class="flex-grow-1 commentarea" th:each="comment : ${comments} ">
 										<p class="ml-2 mt-2" th:text="${comment.contents}"></p>
 									</div> -->
 									<div class="commentarea" th:if="${not #lists.isEmpty(comments)}">
-									    <th:block th:each="comment : ${comments}">
-									        <b th:text=${comment.nickname}></b><p th:text="${comment.contents}"></p>
+									    <th:block th:each="comment : ${comments}" >
+									        <span class="ml-2"><b th:text="${comment.nickname}"></b><span class="ml-2" th:text="${comment.contents}"></span></span><br>
 									    </th:block> 
 									</div>
 									<div th:if="${#lists.isEmpty(comments)}">
@@ -45,8 +49,8 @@
         				 		</div>
         				 	</div>
         				 	
-        				 	<div class="d-flex my-3">
-        				 		<input type="text" class="form-control col-10" id="contentsInput"> 
+        				 	<div class="d-flex my-3 p-2">
+        				 		<input type="text" class="form-control col-10 p-2" id="contentsInput"> 
         				 		<button type="button" class="btn  btn-outline-secondary col-2 btn-sm px-2 py-1" id="commentBtn" th:data-post-id="${post.id}">댓글달기</button>
         				 	</div>
         				 </div>
@@ -84,6 +88,52 @@
         				alert("댓글 작성중 통신 에러");
         			}
         		});
+        		
+        		
+        		
+        		
+        		$(".heart-icon").on("click", function(){
+            		let postId = $(this).data("post-id");
+            		
+            		$.ajax({
+            			type:"post"
+            			, url:"/like/create"
+            			, data:{"postId":postId}
+            			, success:function(response){
+            				if(response.result =="success"){
+            					location.reload(); // 좋아요 개수 갱신되게,
+            				} else {
+            					alert("좋아요 기능 실패");
+            				}
+            				
+            			}
+            			, error:function(){
+            				alert("좋아요 기능 중 통신 에러");
+            			}
+            		});
+            	});
+            
+            	
+            	$(".heart-icon-fill").on("click", function(){
+            		let postId = $(this).data("post-id");
+            		
+            		$.ajax({
+            			type:"post"
+            			, url:"/like/delete"
+            			, data:{"postId":postId}
+            			, success:function(response){
+            				if(response.result =="success"){
+            					location.reload(); // 좋아요 개수 갱신되게,
+            				} else {
+            					alert("좋아요 기능 실패");
+            				}
+            				
+            			}
+            			, error:function(){
+            				alert("좋아요 기능 중 통신 에러");
+            			}
+            		});
+            	});
         		
         	});
         

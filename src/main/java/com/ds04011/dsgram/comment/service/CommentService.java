@@ -65,5 +65,10 @@ public class CommentService {
 		 
 		 return dtoList;
 	}
+	
+	public List<Comment> getComments(long postId){
+		List<Comment> commentList = commentRepository.findAllByPostId(postId);
+		return commentList;
+	}
 
 }

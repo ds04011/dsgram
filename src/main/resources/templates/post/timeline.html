@@ -27,12 +27,21 @@
         				
         				 <div class="commentandlike ">
         				 	<div>											<!--heart-icon 로 JS 버튼 등록            , 태그에 postId 할당, JS 에서 쓰자.  -->
-        				 		<button type="button" class="bi bi-balloon-heart heart-icon ml-2 mt-2" th:data-post-id="${post.id}"></button><span>좋아요 11개</span>
+        				 		<button type="button" th:if="${post.isLike}" class="bi bi-balloon-heart-fill heart-icon-fill ml-2 mt-2" th:data-post-id="${post.id}"></button>
+        				 		<button type="button" th:unless="${post.isLike}" class="bi bi-balloon-heart heart-icon ml-2 mt-2" th:data-post-id="${post.id}"></button>
+        				 		<span th:text="${post.likeCount}">좋아요 11개</span>
         				 		<br>
         				 		<div class="d-flex justify-content-between align-items-end">
         				 			<div class="flex-grow-1">
-        				 				<span class=" ml-2 mt-2"><b>작성자 </b>댓글이 이렇게 표현되요</span><br>
-        				 				<span class=" ml-2 mt-2"><b>작성자 </b>댓글이 이렇게 표현되요</span>
+        				 				<span th:if="${#lists.isEmpty(post.commentList) == false}" class="ml-2 mt-2">
+  											<b th:text="${post.commentList[0].nickname}">작성자</b> <span th:text="${post.commentList[0].contents}"></span>
+										</span><br>
+        				 				<span th:if="${#lists.size(post.commentList) >= 2}" class="ml-2 mt-2">
+  											<b th:text="${post.commentList[1].nickname}">작성자</b> <span th:text="${post.commentList[1].contents}"></span>
+										</span>
+        				 				
+        				 				
+        				 				
         				 			</div>
         				 			<a th:href="|/post/view/detail?id=${post.id}|" class="btn  btn-outline-secondary btn-sm px-2 py-1">상세보기</a>
         				 			<!--  	이게 최적 1. a태그 + 타임리프로 id 얹어서 보내기 
@@ -115,7 +124,26 @@
         	});
         
         	
-        	
+        	$(".heart-icon-fill").on("click", function(){
+        		let postId = $(this).data("post-id");
+        		
+        		$.ajax({
+        			type:"post"
+        			, url:"/like/delete"
+        			, data:{"postId":postId}
+        			, success:function(response){
+        				if(response.result =="success"){
+        					location.reload(); // 좋아요 개수 갱신되게,
+        				} else {
+        					alert("좋아요 기능 실패");
+        				}
+        				
+        			}
+        			, error:function(){
+        				alert("좋아요 기능 중 통신 에러");
+        			}
+        		});
+        	});
         
         </script>
         

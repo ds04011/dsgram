@@ -32,5 +32,22 @@ public class LikeService {
 		return count;
 	}
 	
+	public boolean isLike(long userId, long postId) {
+		long isLike  = likeRepository.countByUserIdAndPostId(userId, postId);
+		// 1 이면 누른거고, 0 이면 안누른거고, 
+		if(isLike == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean cancelLike(long postId, long userId) {
+		
+		likeRepository.deleteByPostIdAndUserId(postId, userId);
+		// 존재여부, 에 대한 처리정도만 추가되면 좋다. 
+		return true;
+	}
+	
 	
 }

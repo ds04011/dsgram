@@ -14,6 +14,8 @@ import com.ds04011.dsgram.like.Service.LikeService;
 import com.ds04011.dsgram.post.Dto.PostDto;
 import com.ds04011.dsgram.post.service.PostService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/post/view")
 public class PostController {
@@ -31,7 +33,8 @@ public class PostController {
 	}
 	
 	@GetMapping("/timeline")
-	public String timeline(Model model) {
+	public String timeline(Model model
+			, HttpSession session) {
 		
 		
 		// 세션 정보 + DB 에서 포스트 정보 긁어다가 보내줘야함, 
@@ -40,8 +43,8 @@ public class PostController {
 		
 		// 생각해보니, 세션에서 정보를 가져올 필요가 없는데,
 		// 왜냐면 타임리프 문법으로 직접 세션에서 정보를 판단 할 수 있으니까.
-		
-		List<PostDto> totalPost = postService.getPostList();
+		long currentUserId = (Long)session.getAttribute("userId");
+		List<PostDto> totalPost = postService.getPostList(currentUserId);
 		model.addAttribute("postList", totalPost);
 		
 		// 이거 보니까, postDto 에 좋아요 수 , 댓글 1,2개 를 넣어야 하는건가..?
@@ -60,7 +63,8 @@ public class PostController {
 	
 	@GetMapping("/detail")
 	public String detail(Model model
-			,@RequestParam("id") long id ) {
+			,@RequestParam("id") long id 
+			, HttpSession session) {
 		// 이거 포스트 아이디 말하는거임. 
 		
 		PostDto post = postService.getPostById(id);
@@ -73,7 +77,8 @@ public class PostController {
 		// 이제 nickname 있음.
 		
 		long likeCount = likeService.getCountByPostId(id);
-		
+		boolean isLike = likeService.isLike((Long)session.getAttribute("userId"), id);
+		model.addAttribute("isLike", isLike);
 		model.addAttribute("likeCount", likeCount);
 		// <a th:href="|/post/view/detail?id=${memo.id}|" th:text="${memo.title}"></a> 
 		// 이런식으로 post id 자체를 바로 넘겨받아
