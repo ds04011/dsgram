@@ -70,5 +70,11 @@ public class CommentService {
 		List<Comment> commentList = commentRepository.findAllByPostId(postId);
 		return commentList;
 	}
+	
+	public boolean deleteByPostId(long postId) {
+		
+		commentRepository.deleteByPostId(postId);
+		return true;
+	}
 
 }

@@ -45,6 +45,31 @@ public class FileManager {
 		return "/images" + directoryName + "/" + file.getOriginalFilename();
 	}
 	
+	public static boolean removeFile(String filePath) { // /images/2_98734957/test.png
+		
+		if(filePath==null) {
+			return false;
+		}
+		
+		String fullFilePath = FILE_UPLOAD_PATH  +  filePath.replace("/images", "");   
+		// 삭제할 대상 경로 완성
+		// 문자열 경로를 path 라는 객체로 생성.
+		Path path =  Paths.get(fullFilePath);
+		// 디렉토리도 생성했으니까, 폴더도 삭제해줘야함
+		Path directoryPath = path.getParent();
+		try {
+			Files.delete(path);	
+			Files.delete(directoryPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+		
+		
+		
+	}
+	
 	
 	
 }

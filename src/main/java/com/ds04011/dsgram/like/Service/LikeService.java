@@ -1,5 +1,8 @@
 package com.ds04011.dsgram.like.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.ds04011.dsgram.like.Repository.LikeRepository;
@@ -44,10 +47,20 @@ public class LikeService {
 	
 	public boolean cancelLike(long postId, long userId) {
 		
-		likeRepository.deleteByPostIdAndUserId(postId, userId);
-		// 존재여부, 에 대한 처리정도만 추가되면 좋다. 
-		return true;
+		Optional<Like> oplike = likeRepository.findByPostIdAndUserId(postId, userId); 
+		if(oplike.isPresent()) {
+			Like like = oplike.get() ;
+			likeRepository.delete(like);
+			return true;
+		 } else {
+			 return false;
+		 } 
 	}
 	
+	public boolean deleteByPostId(long postId) {
+		likeRepository.deleteAllByPostId(postId);
+		return true;
+		
+	}
 	
 }
